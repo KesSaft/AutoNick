@@ -3,7 +3,6 @@ package de.jan.autonick.config;
 import de.jan.autonick.AutoNick;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,13 +17,7 @@ public class AutoNickConfiguration {
     public AutoNickConfiguration(AutoNick plugin) {
         plugin.saveDefaultConfig();
 
-        try {
-            this.configuration = YamlConfiguration.loadConfiguration(
-                    new BufferedReader(new InputStreamReader(new FileInputStream(new File(plugin.getDataFolder(), "config.yml")), StandardCharsets.UTF_8)));
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-            return;
-        }
+        this.configuration = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
 
         this.bungeeCord = this.getBoolean("bungeecord");
     }
